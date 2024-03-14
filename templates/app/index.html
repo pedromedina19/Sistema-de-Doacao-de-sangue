@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    form{
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+    }
+    form button{
+      width: fit-content;
+      margin-bottom: 5px;
+    }
+    
+  </style>
+  
+</head>
+<body>
+  <h1>Home</h1> 
+  <form method="post" action="{% url 'teste3' %}">
+    {% csrf_token %}
+    <button type="submit" name="submit"><a href="/teste">Teste de rota</a></button>
+    <button type="submit" name="submit"><a href="{% url 'teste2' 10 %}">Teste de rota com parâmetro</a></button>
+    <label for="valor">Digite um valor:</label>
+    <input type="text" id="valor" name="valor">    
+    <button type="submit">enviar</button>
+    <button type="submit"><a href="{% url 'teste4' %}?valor=10&quantidade=3">Testar rota com valor 10 e quantidade 3</a></button>
+  </form>
+
+</body>  
+</html>
