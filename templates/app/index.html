@@ -29,5 +29,37 @@
   <button type="button" name="submit">
     <a href="{% url 'teste' %}?valor=10&quantidade=3">Testar rota com valor 10 e quantidade 3</a>
   </button>
+
+
+  <form action="#" method="post">
+    {% csrf_token %}
+    <label for="txt_input">Texto:</label>
+    <input type="text" id="txt_input">
+
+    <label for="int_input">Inteiro:</label>
+    <input type="number" id="int_input">
+
+    <div>
+      <label for="checkbox_input">checkbox:</label>
+      <input type="checkbox" id="checkbox_input">
+    </div>
+
+    <div>
+      <select name="dropbox" id="dropbox">
+        <option value="opc1">Opc 1</option>
+        <option value="opc2">Opc 2</option>      
+      </select>
+    </div>
+
+    <div>
+      <input type="radio" id="val1" name="radio" value="val1">
+      <label for="val1">Val1</label><br>
+      <input type="radio" id="val2" name="radio" value="val2">
+      <label for="val2">Val2</label><br>
+      <input type="radio" id="val3" name="radio" value="val3">
+      <label for="val3">Val3</label><br>
+    </div>
+
+  </form>
 </body>  
 </html>
