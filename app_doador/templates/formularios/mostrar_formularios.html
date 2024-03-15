@@ -1,0 +1,22 @@
+<div class="container">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>texto</th>
+            <th>inteiro</th>
+            <th>booleano</th>
+            <th>opcaoSelect</th>
+            <th>opcaoRadio</th>
+        </tr>
+        {% for item in formularios %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.texto}}</td>
+            <td>{{item.inteiro}}</td>
+            <td>{{item.booleano}}</td>
+            <td>{{item.opcaoSelect}}</td>
+            <td>{{item.opcaoRadio}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
