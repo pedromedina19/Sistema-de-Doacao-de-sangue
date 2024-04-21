@@ -4,23 +4,36 @@ from django.core.validators import MaxLengthValidator
 from django.core.validators import MinValueValidator
 from django.core.validators import MaxValueValidator
 
-class Formulario(models.Model):
-    id = models.AutoField(primary_key=True)
-    texto = models.CharField(
-        max_length = 255, 
-        validators=[        
-            MinLengthValidator(2, "Texto deve ter pelo menos 2 caracteres."),
-            MaxLengthValidator(255, "Texto deve ter no máximo 255 caracteres.")
-        ]
-    )
-    inteiro = models.IntegerField(
-        validators=[        
-            MinValueValidator(1, "Valor deve ser maior que 0."),
-            MaxValueValidator(1000, "Valor deve ser menor que 1000.")
-        ]
-    )
-    booleano = models.BooleanField()
-    opcaoSelect = models.CharField(max_length=100)
-    opcaoRadio = models.CharField(max_length=100)
+class Doador(models.Model):
+    RH_CHOICES = [
+        ('Positivo', 'Positivo'),
+        ('Negativo', 'Negativo'),
+    ]
 
+    TIPO_SANGUINEO_CHOICES = [
+        ('A', 'A'),
+        ('B', 'B'),
+        ('AB', 'AB'),
+        ('O', 'O'),
+    ]
+
+    nome = models.TextField()
+    cpf = models.TextField()
+    contato = models.TextField()
+    tipo_sanguineo = models.CharField(max_length=2, choices=TIPO_SANGUINEO_CHOICES)
+    rh = models.CharField(max_length=8, choices=RH_CHOICES)
+    tipo_rh_corretos = models.BooleanField()
+    inativo = models.BooleanField(default=False)
     
+    class Meta:
+        db_table = 'doador'
+
+class Doacao(models.Model):
+    data = models.DateField()
+    hora = models.TimeField()
+    volume = models.DecimalField(max_digits=10, decimal_places=3)
+    inativo = models.BooleanField(default=False)
+    doador = models.ForeignKey(Doador, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'doacao'
