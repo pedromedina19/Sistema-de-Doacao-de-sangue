@@ -77,7 +77,7 @@ WSGI_APPLICATION = "sistemadoacaosangue.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sistemadoacaosangue',
         'USER': 'postgres',
         'PASSWORD': 'password',

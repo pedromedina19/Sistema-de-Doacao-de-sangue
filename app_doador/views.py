@@ -1,6 +1,6 @@
-from django.forms import ValidationError
-from django.shortcuts import render, redirect
-from django.contrib import messages
+# from django.forms import ValidationError
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
 # from .models import Formulario
 # from .forms import Form
 
