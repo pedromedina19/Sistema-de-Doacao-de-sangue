@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="{% url 'cadastrar_doador' %}" method="post">
+    {% csrf_token %}
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome"><br><br>
+    
+    <label for="cpf">CPF:</label>
+    <input type="text" id="cpf" name="cpf"><br><br>
+
+    <label for="contato">Contato:</label>
+    <input type="text" id="contato" name="contato"><br><br>
+    
+    <label>Tipo sanguíneo:</label><br>
+    
+    <input type="radio" id="tipo_A" name="tipo_sanguineo" value="A">
+    <label for="tipo_A">A</label><br>
+    
+    <input type="radio" id="tipo_B" name="tipo_sanguineo" value="B">
+    <label for="tipo_B">B</label><br>
+
+    <input type="radio" id="tipo_AB" name="tipo_sanguineo" value="AB">
+    <label for="tipo_AB">AB</label><br>
+
+    <input type="radio" id="tipo_O" name="tipo_sanguineo" value="O">
+    <label for="tipo_O">O</label><br>
+
+    <input type="radio" id="todos" name="tipo_sanguineo" value="todos">
+    <label for="todos">Todos</label><br><br>
+
+    <label>Rh:</label><br>
+    
+    <input type="radio" id="rh_positivo" name="rh" value="POSITIVO">
+    <label for="rh_positivo">+</label><br>
+    
+    <input type="radio" id="rh_negativo" name="rh" value="NEGATIVO">
+    <label for="rh_negativo">-</label><br>
+
+    <input type="radio" id="rh_todos" name="rh" value="todos">
+    <label for="rh_todos">Todos</label><br><br>
+    
+    <input type="submit" value="Buscar">    
+   
+  </form>
+</body>
+</html>

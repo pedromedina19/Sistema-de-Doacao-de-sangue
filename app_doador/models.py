@@ -22,7 +22,7 @@ class Doador(models.Model):
     contato = models.TextField()
     tipo_sanguineo = models.CharField(max_length=2, choices=TIPO_SANGUINEO_CHOICES)
     rh = models.CharField(max_length=8, choices=RH_CHOICES)
-    tipo_rh_corretos = models.BooleanField()
+    tipo_rh_corretos = models.BooleanField(default=False)
     inativo = models.BooleanField(default=False)
     
     class Meta:
