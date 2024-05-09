@@ -5,7 +5,7 @@ from .models import Doador
 class DoadorForm(forms.ModelForm):
     class Meta:
         model = Doador
-        fields = ['nome', 'cpf', 'contato', 'tipo_sanguineo', 'rh']   
+        fields = ['nome', 'cpf', 'contato', 'tipo_sanguineo', 'rh', 'tipo_rh_corretos']   
   
 
     

@@ -6,7 +6,7 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="{% url 'cadastrar_doador' %}" method="post">
+  <form action="{% url 'mostrar_formularios' %}" method="get">
     {% csrf_token %}
 
     <label for="nome">Nome:</label>
@@ -37,17 +37,17 @@
 
     <label>Rh:</label><br>
     
-    <input type="radio" id="rh_positivo" name="rh" value="POSITIVO">
-    <label for="rh_positivo">+</label><br>
+    <input type="radio" id="rh_positivo" name="rh" value="Positivo">
+    <label for="rh_positivo">Positivo</label><br>
     
-    <input type="radio" id="rh_negativo" name="rh" value="NEGATIVO">
-    <label for="rh_negativo">-</label><br>
+    <input type="radio" id="rh_negativo" name="rh" value="Negativo">
+    <label for="rh_negativo">Negativo</label><br>
 
     <input type="radio" id="rh_todos" name="rh" value="todos">
     <label for="rh_todos">Todos</label><br><br>
     
     <input type="submit" value="Buscar">    
-   
+    <a href="{% url 'home' %}"><input type="button" value="Voltar"></a>
   </form>
 </body>
 </html>

@@ -1,22 +1,49 @@
-<div class="container">
-    <table>
-        <tr>
-            <th>id</th>
-            <th>texto</th>
-            <th>inteiro</th>
-            <th>booleano</th>
-            <th>opcaoSelect</th>
-            <th>opcaoRadio</th>
-        </tr>
-        {% for item in formularios %}
-        <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.texto}}</td>
-            <td>{{item.inteiro}}</td>
-            <td>{{item.booleano}}</td>
-            <td>{{item.opcaoSelect}}</td>
-            <td>{{item.opcaoRadio}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>codigo</th>
+                    <th>nome</th>
+                    <th>cpf</th>
+                    <th>contato</th>
+                    <th>tipo_sanguineo</th>
+                    <th>rh</th>
+                    <th>tipo_rh_corretos</th>
+                    <th>situacao</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for item in doadores %}
+            <tr>
+                <td>{{item.codigo}}</td>
+                <td>{{item.nome}}</td>
+                <td>{{item.cpf}}</td>
+                <td>{{item.contato}}</td>
+                <td>{{item.tipo_sanguineo}}</td>
+                <td>{{item.rh}}</td>    
+                <td>{{item.tipo_rh_corretos}}</td>
+                <td>{{item.situacao}}</td>
+                <td><a href="{% url 'atualizar_cadastro' item.codigo %}"><input type="button" value="Alterar"></a></td>
+                <td><a href="{% url 'confirmar_remocao' item.codigo %}"><input type="button" value="Remover"></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'buscar' %}"><input type="button" value="Voltar"></a>
+    </div>
+    
+</body>    
+</html>
+

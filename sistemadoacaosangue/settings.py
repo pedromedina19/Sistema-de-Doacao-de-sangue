@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
-    'app_doador'
+    "django.contrib.staticfiles",    
+    'app_doador',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ DATABASES = {
         'NAME': 'sistemadoacaosangue',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': '172.19.0.2',
+        'HOST': '172.19.0.3',
         'PORT': '5432',
     }
 }
