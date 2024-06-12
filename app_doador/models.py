@@ -33,7 +33,7 @@ class Doacao(models.Model):
     data = models.DateField()
     hora = models.TimeField()
     volume = models.DecimalField(max_digits=10, decimal_places=3)
-    situacao = models.TextField()
+    situacao = models.TextField(default='disponível')
     codigo_doador = models.ForeignKey(Doador, on_delete=models.CASCADE)
 
     class Meta:

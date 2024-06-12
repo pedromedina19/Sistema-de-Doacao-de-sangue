@@ -36,12 +36,17 @@
                 <td>{{item.rh}}</td>    
                 <td>{{item.tipo_rh_corretos}}</td>
                 <td>{{item.situacao}}</td>
-                <td><a href="{% url 'atualizar_cadastro' item.codigo %}"><input type="button" value="Alterar"></a></td>
-                <td><a href="{% url 'confirmar_remocao' item.codigo %}"><input type="button" value="Remover"></a></td>
+                
+                {% if boolean_param %}
+                <td><a href="{% url 'doar' item.codigo %}"><input type="button" value="Selecionar" {% if item.situacao == 'inativo'%} disabled {%endif%}></a></td>
+                {% else %}
+                <td><a href="{% url 'atualizar_cadastro' item.codigo %}"><input type="button" value="Alterar" {% if item.situacao == 'inativo'%} disabled {%endif%}></a></td>
+                <td><a href="{% url 'confirmar_remocao' item.codigo %}"><input type="button" value="Remover" {% if item.situacao == 'inativo'%} disabled {%endif%}></a></td>                
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
-        <a href="{% url 'buscar' %}"><input type="button" value="Voltar"></a>
+        <a href="{% url 'buscar' %}?doar={{boolean_param}}"><input type="button" value="Voltar"></a>
     </div>
     
 </body>    

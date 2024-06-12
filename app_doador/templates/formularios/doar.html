@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>    
+    <form action="{% url 'cadastrar_doacao' doador.codigo %}" method="post">
+        {% csrf_token %}
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{doador.nome}}" disabled><br><br>
+        
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" value="{{doador.cpf}}" disabled><br><br>
+
+        <label for="contato">Contato:</label>
+        <input type="text" id="contato" name="contato" value="{{doador.contato}}" disabled><br><br>
+
+        <label>Tipo rh correto:</label><br>
+        
+        <input type="radio" id="rh_true" name="tipo_rh_corretos" value={{True}} {% if doador.tipo_rh_corretos == True %} checked {% endif %} disabled>
+        <label for="rh_true">Sim</label><br>
+        
+        <input type="radio" id="rh_false" name="tipo_rh_corretos" value={{False}} {% if doador.tipo_rh_corretos == False %} checked {% endif %} disabled>
+        <label for="rh_false">Não</label><br><br>
+        
+        <label>Tipo sanguíneo:</label><br>
+        
+        <input type="radio" id="tipo_A" name="tipo_sanguineo" value="A" {% if doador.tipo_sanguineo == 'A' %} checked {% endif %} disabled>
+        <label for="tipo_A">A</label><br>
+        
+        <input type="radio" id="tipo_B" name="tipo_sanguineo" value="B" {% if doador.tipo_sanguineo == 'B' %} checked {% endif %} disabled>
+        <label for="tipo_B">B</label><br>
+
+        <input type="radio" id="tipo_AB" name="tipo_sanguineo" value="AB" {% if doador.tipo_sanguineo == 'AB' %} checked {% endif %} disabled>
+        <label for="tipo_AB">AB</label><br>
+
+        <input type="radio" id="tipo_O" name="tipo_sanguineo" value="O" {% if doador.tipo_sanguineo == 'O' %} checked {% endif %} disabled>
+        <label for="tipo_O">O</label><br><br>
+
+        <label>Rh:</label><br>
+        
+        <input type="radio" id="rh_positivo" name="rh" value="Positivo" {% if doador.rh == 'Positivo' %} checked {% endif %} disabled>
+        <label for="rh_positivo">Positivo</label><br>
+        
+        <input type="radio" id="rh_negativo" name="rh" value="Negativo" {% if doador.rh == 'Negativo' %} checked {% endif %} disabled>
+        <label for="rh_negativo">Negativo</label><br><br>
+
+        <hr>
+        <label for="volume">Volume (ml):</label>
+        <input type="number" id="volume" name="volume" min="0" step="1" required>
+        <br><br>
+
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+        <br><br>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
+        <br><br>
+        
+        <hr>
+
+        <input type="submit" value="Confirmar">
+        <a href="{% url 'recuperar_busca_anterior' %}"><input type="button" value="Voltar"></a>
+    </form>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %} 
+</body>
+</html>

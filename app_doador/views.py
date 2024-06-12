@@ -1,10 +1,9 @@
-from audioop import reverse
-from django.forms import ValidationError
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import DoadorForm
-from .models import Doador
+from .forms import DoacaoForm, DoadorForm
+from .models import Doacao, Doador
 
 
 def home(request):
@@ -31,11 +30,13 @@ def cadastrar_doador(request):
  
 
 def buscar(request):
-    return render(request, 'formularios/buscar.html')
+    boolean_param = request.GET.get('doar', 'false').lower() in ('true', '1')           
+    return render(request, 'formularios/buscar.html', {'boolean_param': boolean_param})   
 
 
 def mostrar_formularios(request):
     if request.method == 'GET':
+        boolean_param = request.GET.get('doar', 'false').lower() in ('true', '1')
         nome = request.GET.get("nome")
         cpf = request.GET.get("cpf")
         contato = request.GET.get("contato")
@@ -55,13 +56,43 @@ def mostrar_formularios(request):
             filtro['rh'] = rh
 
         request.session['filtro'] = filtro
+        request.session['boolean_param'] = boolean_param        
         
         if filtro or (tipo_sanguineo == 'todos' or rh == 'todos'):
-            doadores = Doador.objects.filter(**filtro)        
-            return render(request, 'formularios/mostrar_formularios.html', {'doadores': doadores})
+            doadores = Doador.objects.filter(**filtro)       
+            context = {
+                'doadores': doadores,
+                'boolean_param': boolean_param
+            }  
+            return render(request, 'formularios/mostrar_formularios.html', context)
         else:
-            return render(request, 'formularios/buscar.html')
+            return render(request, 'formularios/buscar.html', {'boolean_param': boolean_param})    
     
+
+def confirmar_remocao(request, valor=None):    
+    if valor is not None:        
+        doador = Doador.objects.filter(codigo=valor).first()
+        if doador and doador.situacao == 'ativo': 
+            return render(request, 'formularios/confirmar_remocao.html', {'codigo': valor})
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
+
+
+def remover_doador(request, valor=None):
+    if valor is not None:        
+        doador = Doador.objects.filter(codigo=valor).first()
+        if doador and doador.situacao == 'ativo':            
+            doador.situacao = 'inativo'
+            doador.save()
+        return redirect('recuperar_busca_anterior')
+    
+    return redirect('home')
+
+
+def recuperar_busca_anterior(request):
+    busca_anterior = request.session.get('filtro', {})
+    doadores = Doador.objects.filter(**busca_anterior)        
+    return render(request, 'formularios/mostrar_formularios.html', {'doadores': doadores})
+
 
 def confirmar_remocao(request, valor=None):    
     if valor is not None:        
@@ -106,57 +137,36 @@ def atualizar(request, valor=None):
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
 
+# =====================
 
-def recuperar_busca_anterior(request):
-    busca_anterior = request.session.get('filtro', {})
-    doadores = Doador.objects.filter(**busca_anterior)        
-    return render(request, 'formularios/mostrar_formularios.html', {'doadores': doadores})
-
-def confirmar_remocao(request, valor=None):    
-    if valor is not None:        
-        doador = Doador.objects.filter(codigo=valor).first()
-        if doador and doador.situacao == 'ativo': 
-            return render(request, 'formularios/confirmar_remocao.html', {'codigo': valor})
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
-
-
-def remover_doador(request, valor=None):
-    if valor is not None:        
-        doador = Doador.objects.filter(codigo=valor).first()
-        if doador and doador.situacao == 'ativo':            
-            doador.situacao = 'inativo'
-            doador.save()
-        return redirect('recuperar_busca_anterior')
-    
-    return redirect('home')
-
-
-def atualizar_cadastro(request, valor=None):    
+def doar(request, valor=None):
     if valor is not None:
-        doador = Doador.objects.filter(codigo=valor)
-        return render(request, 'formularios/atualizar_cadastro.html', {'doador': doador})
-    
+        doador = Doador.objects.filter(codigo=valor).first()
+        return render(request, 'formularios/doar.html', {'doador': doador})
     return redirect('home')
 
+def cadastrar_doacao(request, valor=None):
+    if request.method == 'POST' and valor is not None:
+        volume = request.POST.get("volume")
+        data = request.POST.get("data")
+        hora = request.POST.get("hora")
+                 
+        doacao = DoacaoForm({
+            'volume': volume,
+            'data': data,
+            'hora': hora,
+            'codigo_doador': valor 
+        })
 
-def atualizar(request, valor=None):
-    if request.method == 'POST':
-        if valor is not None:
-            doador = Doador.objects.get(codigo=valor)
-            cadastro = DoadorForm(request.POST, instance=doador)            
-            if cadastro.is_valid():   
-                if all([cadastro.cleaned_data[field] for field in cadastro.fields if cadastro.fields[field].required]):
-                    cadastro.save()
-                    return redirect('recuperar_busca_anterior')
-            else:
-                for field, errors in cadastro.errors.items():
-                    for error in errors:                        
-                        messages.error(request, f'Erro no campo {field}: - {error}')
+        if not doacao.is_valid(): 
+            for field, errors in doacao.errors.items():
+                for error in errors:                        
+                    messages.error(request, f'Erro no campo {field}: - {error}') 
+
+        else:              
+            doacao.save() 
+            messages.success(request, 'Doação cadastrada.')
+            return redirect('home') 
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
 
-
-def recuperar_busca_anterior(request):
-    busca_anterior = request.session.get('filtro', {})
-    doadores = Doador.objects.filter(**busca_anterior)        
-    return render(request, 'formularios/mostrar_formularios.html', {'doadores': doadores})

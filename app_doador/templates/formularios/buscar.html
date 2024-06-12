@@ -9,6 +9,12 @@
   <form action="{% url 'mostrar_formularios' %}" method="get">
     {% csrf_token %}
 
+    {% if boolean_param %}
+    <input type="hidden" name="doar" value="true">
+    {% else %}
+    <input type="hidden" name="doar" value="false">
+    {% endif %}
+
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome"><br><br>
     

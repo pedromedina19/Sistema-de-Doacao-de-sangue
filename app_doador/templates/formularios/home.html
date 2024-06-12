@@ -11,9 +11,9 @@
         
     <div>
       <a href="{% url 'cadastrar' %}"><input type="button" value="Cadastrar doador"></a>
-      <a href="{% url 'buscar' %}"><input type="button" value="Buscar doador"></a>
-
-    </div>    
+      <a href="{% url 'buscar'%}?doar=false"><input type="button" value="Buscar doador"></a>
+      <a href="{% url 'buscar'%}?doar=true"><input type="button" value="Doar sangue"></a>            
+    </div> 
 
     {% if messages %}
     <div class="messages">
