@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Código</th>
+                    <th>Doador</th>
+                    <th>Volume (ml)</th>
+                    <th>Data</th>
+                    <th>Hora</th>                    
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            {% for item in doacoes %}            
+            <tr>
+                <td>{{item.codigo}}</td>                
+                <td>{{item.codigo_doador.nome}}</td>
+                <td>{{item.volume}}</td>
+                <td>{{item.data}}</td>
+                <td>{{item.hora}}</td>
+                <td>{{item.situacao}}</td>                                
+            </tr>
+            {% endfor %}
+        </table>                  
+    </div>
+    
+</body>    
+</html>
+

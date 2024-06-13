@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'sistemadoacaosangue',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': '172.19.0.3',
+        'HOST': '172.19.0.2',
         'PORT': '5432',
     }
 }
