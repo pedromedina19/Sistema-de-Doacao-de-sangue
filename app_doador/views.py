@@ -176,3 +176,13 @@ def cadastrar_doacao(request, valor=None):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
 
 #================
+def mostrar_doacoes(request, valor=None):
+    if valor is not None:
+        doacoes = Doacao.objects.filter(codigo_doador=valor) 
+        doadores = Doador.objects.filter(codigo=valor)
+        context = {
+            'doacoes':doacoes,
+            'doadores':doadores
+        }       
+        return render(request, 'formularios/mostrar_doacoes.html', context)
+    redirect('home')

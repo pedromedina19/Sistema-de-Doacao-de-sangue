@@ -42,6 +42,7 @@
                 {% else %}
                 <td><a href="{% url 'atualizar_cadastro' item.codigo %}"><input type="button" value="Alterar" {% if item.situacao == 'inativo'%} disabled {%endif%}></a></td>
                 <td><a href="{% url 'confirmar_remocao' item.codigo %}"><input type="button" value="Remover" {% if item.situacao == 'inativo'%} disabled {%endif%}></a></td>                
+                <td><a href="{% url 'mostrar_doacoes' item.codigo%}"><input type="button" value="Doações"></a></td>
                 {% endif %}
             </tr>
             {% endfor %}

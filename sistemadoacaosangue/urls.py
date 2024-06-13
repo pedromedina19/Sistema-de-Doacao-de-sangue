@@ -17,6 +17,7 @@ urlpatterns = [
 
     path('formulario/buscar/mostrar_formularios/doar/<int:valor>/', views.doar, name='doar'),    
     path('formulario/buscar/mostrar_formularios/doar/cadastrar_doacao/<int:valor>/', views.cadastrar_doacao, name='cadastrar_doacao'),    
+    path('formulario/buscar/mostrar_formularios/mostrar_doacoes/<int:valor>/', views.mostrar_doacoes, name='mostrar_doacoes'),    
 ]
 
 
