@@ -89,9 +89,14 @@ def remover_doador(request, valor=None):
 
 
 def recuperar_busca_anterior(request):
-    busca_anterior = request.session.get('filtro', {})
-    doadores = Doador.objects.filter(**busca_anterior)        
-    return render(request, 'formularios/mostrar_formularios.html', {'doadores': doadores})
+    busca_anterior = request.session.get('filtro', {})    
+    boolean_param = request.session.get('boolean_param', False)
+    doadores = Doador.objects.filter(**busca_anterior)       
+    context = {
+        'doadores': doadores,
+        'boolean_param': boolean_param
+    }         
+    return render(request, 'formularios/mostrar_formularios.html', context)
 
 
 def confirmar_remocao(request, valor=None):    
@@ -170,3 +175,4 @@ def cadastrar_doacao(request, valor=None):
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/') )
 
+#================
