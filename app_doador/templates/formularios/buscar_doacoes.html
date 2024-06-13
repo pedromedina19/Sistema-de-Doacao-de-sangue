@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>        
+        function setDefaultDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear();
+
+            var todayStr = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('data_final').value = todayStr;
+        }
+        
+        window.onload = setDefaultDate;
+    </script>
+
+</head>
+<body>
+    <form action="{% url 'buscar_doacoes_por_intervalo_de_datas' %}" method="get">
+        {% csrf_token %}
+        <label for="data_inicial">De:</label>
+        <input type="date" id="data_inicial" name="data_inicial" required>
+        <br><br>
+        <label for="data_final">a:</label>
+        <input type="date" id="data_final" name="data_final" required placeholder="">    
+        <br><br>
+        <input type="submit" value="Buscar">
+        <a href="{% url 'home' %}"><input type="button" value="Voltar"></a>        
+    </form>
+</body>
+</html>

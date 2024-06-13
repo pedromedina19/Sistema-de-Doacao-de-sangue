@@ -186,3 +186,16 @@ def mostrar_doacoes(request, valor=None):
         }       
         return render(request, 'formularios/mostrar_doacoes.html', context)
     redirect('home')
+
+
+def buscar_doacoes(request):
+    return render(request, 'formularios/buscar_doacoes.html')
+
+
+def buscar_doacoes_por_intervalo_de_datas(request):
+    if request.method == 'GET':
+        data_inicial = request.GET.get("data_inicial")
+        data_final = request.GET.get("data_final")            
+        doacoes = Doacao.objects.filter(data__range=(data_inicial, data_final))
+        return render(request, 'formularios/mostrar_doacoes.html', {'doacoes':doacoes})
+    redirect('home')

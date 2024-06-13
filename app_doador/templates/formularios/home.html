@@ -13,6 +13,7 @@
       <a href="{% url 'cadastrar' %}"><input type="button" value="Cadastrar doador"></a>
       <a href="{% url 'buscar'%}?doar=false"><input type="button" value="Buscar doador"></a>
       <a href="{% url 'buscar'%}?doar=true"><input type="button" value="Doar sangue"></a>
+      <a href="{% url 'buscar_doacoes' %}"><input type="button" value="Buscar doações"></a>
     </div> 
 
     {% if messages %}
